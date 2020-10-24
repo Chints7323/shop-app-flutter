@@ -55,44 +55,13 @@ class ProductsProvider with ChangeNotifier {
     return _items.where((prodItem) => prodItem.isFavorite).toList();
   }
 
-  // Future<void> fetchAndSetProduct() async {
-  //   var url =
-  //       'https://light-router-280819.firebaseio.com/products.json?auth=$authToken';
-  //   try {
-  //     final response = await http.get(url);
-  //     final extractedData = json.decode(response.body) as Map<String, dynamic>;
-  //     if (extractedData == null) {
-  //       return;
-  //     }
-  //     url =
-  //         'https://light-router-280819.firebaseio.com/userFavorites/$userId.json?auth=$authToken&orderBy="creatorId"&equalTo="$userId"';
-  //     final favoriteResponse = await http.get(url);
-  //     final favoriteData = jsonDecode(favoriteResponse.body);
-  //     final List<Product> loadedProduct = [];
-  //     extractedData.forEach((prodId, prodData) {
-  //       loadedProduct.add(
-  //         Product(
-  //             id: prodId,
-  //             title: prodData['title'],
-  //             isFavorite:
-  //                 favoriteData == null ? false : favoriteData[prodId] ?? false,
-  //             description: prodData['description'],
-  //             price: prodData['price'],
-  //             imageUrl: prodData['imageUrl']),
-  //       );
-  //     });
-  //     _items = loadedProduct;
-  //     notifyListeners();
-  //   } catch (error) {
-  //     throw (error);
-  //   }
-  // }
+ 
 
   Future<void> fetchAndSetProduct([bool filterByUser = false]) async {
     final filterString =
         filterByUser ? 'orderBy="creatorId"&equalTo="$userId"' : '';
     var url =
-        'https://light-router-280819.firebaseio.com/products.json?auth=$authToken&$filterString';
+        'https://light-router-280.firebaseio.com/products.json?auth=$authToken&$filterString';
     try {
       final response = await http.get(url);
       final extractedData = json.decode(response.body) as Map<String, dynamic>;
@@ -100,7 +69,7 @@ class ProductsProvider with ChangeNotifier {
         return;
       }
       url =
-          'https://light-router-280819.firebaseio.com/userFavorites/$userId.json?auth=$authToken';
+          'https://light-router-280.firebaseio.com/userFavorites/$userId.json?auth=$authToken';
       final favoriteResponse = await http.get(url);
       final favoriteData = json.decode(favoriteResponse.body);
       final List<Product> loadedProducts = [];
@@ -124,7 +93,7 @@ class ProductsProvider with ChangeNotifier {
 
   Future<void> addProduct(Product product) {
     final url =
-        'https://light-router-280819.firebaseio.com/products.json?auth=$authToken';
+        'https://light-router-280.firebaseio.com/products.json?auth=$authToken';
     return http
         .post(
       url,
@@ -157,7 +126,7 @@ class ProductsProvider with ChangeNotifier {
     final prodIndex = _items.indexWhere((prod) => prod.id == id);
     if (prodIndex >= 0) {
       final url =
-          'https://light-router-280819.firebaseio.com/products/$id.json?auth=$authToken';
+          'https://light-router-280.firebaseio.com/products/$id.json?auth=$authToken';
       await http.patch(url,
           body: json.encode({
             'title': newProduct.title,
@@ -172,28 +141,10 @@ class ProductsProvider with ChangeNotifier {
     }
   }
 
-  // Future<void> updateProduct(String id, Product updatedproduct) async {
-  //   final prodIndex = _items.indexWhere((prod) => prod.id == id);
-  //   if (prodIndex > 0) {
-  //     final url =
-  //         'https://light-router-280819.firebaseio.com/products/$id.json?auth=$authToken';
-  //     print(jsonDecode(url));
-  //     await http.patch(url, body: {
-  //       'title': updatedproduct.title,
-  //       'description': updatedproduct.description,
-  //       'price': updatedproduct.price,
-  //       'imageUrl': updatedproduct.imageUrl,
-  //     });
-  //     _items[prodIndex] = updatedproduct;
-  //     notifyListeners();
-  //   } else {
-  //     print('...');
-  //   }
-  // }
 
   Future<void> deleteProduct(String id) async {
     final url =
-        'https://light-router-280819.firebaseio.com/products/$id.json?auth=$authToken';
+        'https://light-router-280.firebaseio.com/products/$id.json?auth=$authToken';
     final existingProductIndex = _items.indexWhere((prod) => prod.id == id);
     var existingProduct = _items[existingProductIndex];
     _items.removeWhere((prod) => prod.id == id);
