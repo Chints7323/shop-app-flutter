@@ -31,7 +31,7 @@ class Orders with ChangeNotifier {
 
   Future<void> fetchAndSetOrder() async {
     final url =
-        'https://light-router-280819.firebaseio.com/orders/$userId.json?auth=$authToken';
+        'https://light-router-280.firebaseio.com/orders/$userId.json?auth=$authToken';
     final response = await http.get(url);
     //print(response.body);
     final List<OrderItem> loadedOrders = [];
@@ -62,37 +62,10 @@ class Orders with ChangeNotifier {
     notifyListeners();
   }
 
-  // Future<void> fetchAndSetOrder() async {
-  //   const url = 'https://light-router-280819.firebaseio.com/products.json';
-  //   final response = await http.get(url);
-  //   final List<OrderItem> loadedOrders = [];
-  //   final extractedData = json.decode(response.body) as Map<String, dynamic>;
-  //   if (extractedData == null) {
-  //     return;
-  //   }
-  //   extractedData.forEach((orderId, orderData) {
-  //     loadedOrders.add(
-  //       OrderItem(
-  //         id: orderId,
-  //         amount: orderData['amount'],
-  //         dateTime: DateTime.parse(orderData['dateTime']),
-  //         products: (orderData['product'] as List<dynamic>)
-  //             .map((item) => CartItem(
-  //                 id: item['id'],
-  //                 title: item['title'],
-  //                 quantity: item['quantity'],
-  //                 price: item['price']))
-  //             .toList(),
-  //       ),
-  //     );
-  //   });
-  //   _orders = loadedOrders.reversed.toList();
-  //   notifyListeners();
-  // }
-
+ 
   Future<void> addOrder(List<CartItem> cartProducts, double total) async {
     final url =
-        'https://light-router-280819.firebaseio.com/orders/$userId.json?auth=$authToken';
+        'https://light-router-280.firebaseio.com/orders/$userId.json?auth=$authToken';
     final timeStamp = DateTime.now();
     final response = await http.post(url,
         body: jsonEncode({
