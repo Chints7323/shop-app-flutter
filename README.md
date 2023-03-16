@@ -1,4 +1,4 @@
-# Online Shoping App using Fluter
+# Online Shopping App using Fluter
 
 1. Multifunction Application with Email Id authetication. 
 2. Marketplace like amazon where person can sell or buy product.
