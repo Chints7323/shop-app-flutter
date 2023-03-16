@@ -1,4 +1,4 @@
-# Online Shopping App using Flutter
+# Android Online Shopping App using Flutter
 
 1. Application with Email Id authentication using Firebase. 
 2. Marketplace like amazon where person can sell or buy product.
